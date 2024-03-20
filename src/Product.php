@@ -22,16 +22,7 @@ class Product implements JsonSerializable
     private ?string $shippingText;
     
     private ?string $shippingDate;
-    
-    /**
-     * __toString
-     *
-     * @return void
-     */
-    public function __toString() {
-        return $this->title." ".$this->color;
-    }
-    
+
     /**
      * jsonSerialize
      *
