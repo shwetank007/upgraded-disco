@@ -80,7 +80,7 @@ class ScrapeHelper
         $checkdates store the following types of dates given below:
         20/03/2024 or 20-24-03 or 1 2 1990
         */
-        $checkDates = preg_match( '/([0-9]?[0-9])[\.\-\/ ]+([0-1]?[0-9])[\.\-\/ ]+([0-9]{2,4})/', $string);
+        preg_match( '/([0-9]?[0-9])[\.\-\/ ]+([0-1]?[0-9])[\.\-\/ ]+([0-9]{2,4})/', $string, $checkDates);
 
         if ($checkDates) {
             if ($checkDates[1]) {
@@ -101,7 +101,8 @@ class ScrapeHelper
         Sunday 20th March 2024; Sunday, 20 March 2024;
         Sun 20 Mar 2024; Sun-20-March-2024
         */
-        $checkDates = preg_match('/(?:(?:' . implode( '|', $dayNames ) . '|' . implode( '|', $shortDayNames ) . ')[ ,\-_\/]*)?([0-9]?[0-9])[ ,\-_\/]*(?:' . implode( '|', $prefixForMonthDay ) . ')?[ ,\-_\/]*(' . implode( '|', $monthNames ) . '|' . implode( '|', $shortMonthNames ) . ')[ ,\-_\/]+([0-9]{4})/i', $string);
+        preg_match('/(?:(?:' . implode( '|', $dayNames ) . '|' . implode( '|', $shortDayNames ) . ')[ ,\-_\/]*)?([0-9]?[0-9])[ ,\-_\/]*(?:' . implode( '|', $prefixForMonthDay ) . ')?[ ,\-_\/]*(' . implode( '|', $monthNames ) . '|' . implode( '|', $shortMonthNames ) . ')[ ,\-_\/]+([0-9]{4})/i', $string, $checkDates);
+        
         if ($checkDates) {
             if (empty($day) && $checkDates[1]) {
                 $day = $checkDates[1];
@@ -126,7 +127,8 @@ class ScrapeHelper
         $checkdates store the following types of dates given below:
         March 20th 2024; March 1 2024; March-20th-2024
         */
-        $checkdates = preg_match('/(' . implode( '|', $monthNames ) . '|' . implode( '|', $shortMonthNames ) . ')[ ,\-_\/]*([0-9]?[0-9])[ ,\-_\/]*(?:' . implode( '|', $prefixForMonthDay ) . ')?[ ,\-_\/]+([0-9]{4})/i', $string);
+        preg_match('/(' . implode( '|', $monthNames ) . '|' . implode( '|', $shortMonthNames ) . ')[ ,\-_\/]*([0-9]?[0-9])[ ,\-_\/]*(?:' . implode( '|', $prefixForMonthDay ) . ')?[ ,\-_\/]+([0-9]{4})/i', $string, $checkdates);
+        
         if ($checkdates) {
             if (empty($month) && $checkdates[1]) {
                 $month = array_search(strtolower($checkdates[1]),  $shortMonthNames);
@@ -149,14 +151,16 @@ class ScrapeHelper
 
         // Match Month Name
         if (empty($month)) {
-            $matchMonthWord = preg_match( '/(' . implode( '|', $monthNames ) . ')/i', $string);
+            preg_match( '/(' . implode( '|', $monthNames ) . ')/i', $string, $matchMonthWord);
+            
             if ($matchMonthWord && $matchMonthWord[1]) {
                 $month = array_search( strtolower($matchMonthWord[1] ), $monthNames);
             }
 
             // Match short month names
             if (empty($month)) {
-                $matchMonthWord = preg_match( '/(' . implode( '|', $shortMonthNames ) . ')/i', $string);
+                preg_match( '/(' . implode( '|', $shortMonthNames ) . ')/i', $string, $matchMonthWord);
+                
                 if ($matchMonthWord && $matchMonthWord[1]) {
                     $month = array_search(strtolower( $matchMonthWord[1]), $shortMonthNames);
                 }
@@ -168,7 +172,8 @@ class ScrapeHelper
 
         // Match 5th 1st day:
         if (empty($day)) {
-            $matchDay = preg_match( '/([0-9]?[0-9])(' . implode( '|', $prefixForMonthDay ) . ')/', $string);
+            preg_match( '/([0-9]?[0-9])(' . implode( '|', $prefixForMonthDay ) . ')/', $string, $matchDay);
+            
             if ($matchDay && $matchDay[1]) {
                 $day = $matchDay[1];
             }
@@ -178,14 +183,16 @@ class ScrapeHelper
         Match year if not already matched
         */
         if (empty($year)) {
-            $matchYear = preg_match( '/[0-9]{4}/', $string);
+            preg_match( '/[0-9]{4}/', $string, $matchYear);
+            
             if ($matchYear && $matchYear[0]) {
                 $year = $matchYear[0];
             }
         }
 
         if (!empty($day) && !empty($month) && empty($year)) {
-            $matchYear = preg_match( '/[0-9]{2}/', $string);
+            preg_match( '/[0-9]{2}/', $string, $matchYear);
+            
             if ($matchYear && $matchYear[0]) {
                 $year = $matchYear[0];
             }
