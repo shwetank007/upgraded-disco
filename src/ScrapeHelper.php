@@ -84,7 +84,7 @@ class ScrapeHelper
 
         if ($checkDates) {
             if ($checkDates[1]) {
-                $day = $checkDates[1];
+                $year = $checkDates[1];
             }
 
             if ($checkDates[2]) {
@@ -92,7 +92,7 @@ class ScrapeHelper
             }
 
             if ($checkDates[3]) {
-                $year = $checkDates[3];
+                $day = $checkDates[3];
             }
         }
 
@@ -217,10 +217,10 @@ class ScrapeHelper
         /*
         Check year for 20th century or 21st century
         */
-        if (strlen($year) == 2 && $year > 20) {
+        if (strlen($year) == 2 && $year < 20) {
             $year = '19' . $year;
         }
-        else if (strlen($year) == 2 && $year < 20 ) {
+        else if (strlen($year) == 2 && $year > 20 ) {
             $year = '20' . $year;
         }
 
