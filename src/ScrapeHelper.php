@@ -109,10 +109,10 @@ class ScrapeHelper
             }
 
             if (empty($month) && $checkDates[2]) {
-                $month = array_search(strtolower($checkDates[2] ), $shortMonthNames);
+                $month = array_search($checkDates[2], $shortMonthNames);
 
                 if (!$month) {
-                    $month = array_search(strtolower($checkDates[2]), $monthNames);
+                    $month = array_search($checkDates[2], $monthNames);
                 }
 
                 $month = $month + 1;
@@ -131,10 +131,10 @@ class ScrapeHelper
         
         if ($checkdates) {
             if (empty($month) && $checkdates[1]) {
-                $month = array_search(strtolower($checkdates[1]),  $shortMonthNames);
+                $month = array_search($checkdates[1],  $shortMonthNames);
 
                 if (!$month) {
-                    $month = array_search(strtolower($checkdates[1]),  $monthNames);
+                    $month = array_search($checkdates[1],  $monthNames);
                 }
 
                 $month = $month + 1;
@@ -154,7 +154,7 @@ class ScrapeHelper
             preg_match( '/(' . implode( '|', $monthNames ) . ')/i', $string, $matchMonthWord);
             
             if ($matchMonthWord && $matchMonthWord[1]) {
-                $month = array_search( strtolower($matchMonthWord[1] ), $monthNames);
+                $month = array_search($matchMonthWord[1], $monthNames);
             }
 
             // Match short month names
@@ -162,7 +162,7 @@ class ScrapeHelper
                 preg_match( '/(' . implode( '|', $shortMonthNames ) . ')/i', $string, $matchMonthWord);
                 
                 if ($matchMonthWord && $matchMonthWord[1]) {
-                    $month = array_search(strtolower( $matchMonthWord[1]), $shortMonthNames);
+                    $month = array_search($matchMonthWord[1], $shortMonthNames);
                 }
             }
 
